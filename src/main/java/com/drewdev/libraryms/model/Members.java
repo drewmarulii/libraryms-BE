@@ -11,7 +11,7 @@ import javax.persistence.UniqueConstraint;
 })
 public class Members extends BaseEntity {
 
-	@Column(name="member_email", length=50, nullable=false)
+	@Column(name="member_email", length=50, nullable=false, unique=true)
 	private String memberEmail;
 	
 	@Column(name="member_fullname", length=30, nullable=false)
@@ -20,10 +20,10 @@ public class Members extends BaseEntity {
 	@Column(name="member_gender", length=8, nullable=false)
 	private String memberGender;
 	
-	@Column(name="member_address", nullable=false)
+	@Column(name="member_address", nullable=false, unique=true)
 	private String memberAddress;
 	
-	@Column(name="member_phone", length=15, nullable=false)
+	@Column(name="member_phone", length=15, nullable=false, unique=true)
 	private String memberPhone;
 
 	public String getMemberEmail() {
