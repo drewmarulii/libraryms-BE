@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "t_borrowing")
-public class Borrowing {
+public class Borrowing extends BaseEntity  {
 
 	private Books book;
 	private LocalDateTime dateBorrow;

@@ -5,7 +5,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "m_users")
-public class Users {
+public class Users extends BaseEntity  {
 
 	private String userFullname;
 	private String userEmail;
