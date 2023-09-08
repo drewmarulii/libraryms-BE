@@ -1,5 +1,6 @@
 package com.drewdev.libraryms.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -7,7 +8,10 @@ import javax.persistence.Table;
 @Table(name = "m_roles")
 public class Roles extends BaseEntity  {
 
+	@Column(name="role_code", length=7, nullable=false, unique=true)
 	private String roleCode;
+	
+	@Column(name="role_name", length=10, nullable=false)
 	private String roleName;
 
 	public String getRoleCode() {

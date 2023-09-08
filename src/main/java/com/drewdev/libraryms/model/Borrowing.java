@@ -2,16 +2,28 @@ package com.drewdev.libraryms.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "t_borrowing")
 public class Borrowing extends BaseEntity  {
 
+	@OneToOne
+	@JoinColumn(name="book_id")
 	private Books book;
+	
+	@Column(name="date_borrow", nullable=false)
 	private LocalDateTime dateBorrow;
+
+	@Column(name="date_return", nullable=false)
 	private LocalDateTime dateReturn;
+	
+	@OneToOne
+	@JoinColumn(name="member_id")
 	private Members member;
 
 	public Books getBook() {
