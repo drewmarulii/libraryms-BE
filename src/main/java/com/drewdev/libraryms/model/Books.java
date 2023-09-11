@@ -26,8 +26,17 @@ public class Books extends BaseEntity {
 	@OneToOne
 	@JoinColumn(name="publisher_id")
 	private Publishers publisher;
+	
+	@OneToOne
+	@JoinColumn(name="category_id")
 	private Categories category;
+	
+	@OneToOne
+	@JoinColumn(name="status_id")
 	private BookStatus status;
+	
+	@OneToOne
+	@JoinColumn(name="file_id")
 	private File file;
 
 	public String getBookIsbn() {

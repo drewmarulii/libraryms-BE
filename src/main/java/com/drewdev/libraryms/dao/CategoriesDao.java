@@ -1,5 +1,10 @@
 package com.drewdev.libraryms.dao;
 
-public class CategoriesDao {
+import org.springframework.stereotype.Repository;
+
+import com.drewdev.libraryms.base.AbstractJpaDao;
+
+@Repository
+public class CategoriesDao extends AbstractJpaDao {
 
 }

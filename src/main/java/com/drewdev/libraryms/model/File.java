@@ -5,23 +5,23 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "m_file")
+@Table(name = "m_files")
 public class File extends BaseEntity {
 
-	@Column(name = "file", nullable = false)
-	private String file;
+	@Column(name = "file_name", nullable = false)
+	private String fileName;
 	
 	@Column(name = "file_extension", nullable = false)
 	private String fileExtension;
 	
-	public String getFile() {
-		return file;
+	public String getFileName() {
+		return fileName;
 	}
-	
-	public void setFile(String file) {
-		this.file = file;
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
-	
+
 	public String getFileExtension() {
 		return fileExtension;
 	}

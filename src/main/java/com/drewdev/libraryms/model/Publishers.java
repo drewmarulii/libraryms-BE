@@ -20,7 +20,7 @@ public class Publishers extends BaseEntity {
 	@Column(name="publ_fax", length=15, unique=true)
 	private String publFax;
 	
-	@Column(name="publ_name", length=50, nullable=false, unique=true)
+	@Column(name="publ_email",length=50, nullable=false, unique=true)
 	private String publEmail;
 
 	public String getPublName() {
