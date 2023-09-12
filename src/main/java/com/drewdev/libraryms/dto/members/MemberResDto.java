@@ -1,33 +1,14 @@
-package com.drewdev.libraryms.model;
+package com.drewdev.libraryms.dto.members;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-@Entity
-@Table(name = "m_members", uniqueConstraints = {
-		@UniqueConstraint(columnNames = {"member_email", "member_address", "member_phone"}) 
-})
-public class Members extends BaseEntity {
-	
-	@Column(name="member_id", length=10, nullable=false, unique=true)
+public class MemberResDto {
+	private String id;
 	private String memberId;
-
-	@Column(name="member_email", length=50, nullable=false, unique=true)
 	private String memberEmail;
-	
-	@Column(name="member_fullname", length=30, nullable=false)
 	private String memberFullname;
-	
-	@Column(name="member_gender", length=8, nullable=false)
 	private String memberGender;
-	
-	@Column(name="member_address", nullable=false, unique=true)
 	private String memberAddress;
-	
-	@Column(name="member_phone", length=15, nullable=false, unique=true)
 	private String memberPhone;
+	private String isActive;
 
 	public String getMemberId() {
 		return memberId;
@@ -35,6 +16,14 @@ public class Members extends BaseEntity {
 
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getMemberEmail() {
@@ -75,6 +64,14 @@ public class Members extends BaseEntity {
 
 	public void setMemberPhone(String memberPhone) {
 		this.memberPhone = memberPhone;
+	}
+
+	public String getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(String isActive) {
+		this.isActive = isActive;
 	}
 
 }

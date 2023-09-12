@@ -1,5 +1,7 @@
 package com.drewdev.libraryms.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -17,7 +19,7 @@ public class Books extends BaseEntity {
 	private String bookTitle;
 	
 	@Column(name="book_publishdate", nullable=false)
-	private String bookPublishDate;
+	private LocalDate bookPublishDate;
 	
 	@OneToOne
 	@JoinColumn(name="author_id")
@@ -55,11 +57,11 @@ public class Books extends BaseEntity {
 		this.bookTitle = bookTitle;
 	}
 
-	public String getBookPublishDate() {
+	public LocalDate getBookPublishDate() {
 		return bookPublishDate;
 	}
 
-	public void setBookPublishDate(String bookPublishDate) {
+	public void setBookPublishDate(LocalDate bookPublishDate) {
 		this.bookPublishDate = bookPublishDate;
 	}
 

@@ -17,45 +17,45 @@ import org.springframework.web.bind.annotation.RestController;
 import com.drewdev.libraryms.dto.DeleteResDto;
 import com.drewdev.libraryms.dto.InsertResDto;
 import com.drewdev.libraryms.dto.UpdateResDto;
-import com.drewdev.libraryms.dto.books.BookUpdateReqDto;
-import com.drewdev.libraryms.dto.books.BooksInsertReqDto;
-import com.drewdev.libraryms.dto.books.BooksResDto;
-import com.drewdev.libraryms.service.BooksService;
+import com.drewdev.libraryms.dto.members.MemberInsertReqDto;
+import com.drewdev.libraryms.dto.members.MemberResDto;
+import com.drewdev.libraryms.dto.members.MemberUpdateReqDto;
+import com.drewdev.libraryms.service.MembersService;
 
 @RestController
-@RequestMapping("books")
-public class BooksController {
+@RequestMapping("members")
+public class MembersController {
 
 	@Autowired
-	private BooksService booksService;
+	private MembersService membersService;
 	
 	@GetMapping("/")
-	public ResponseEntity<BooksResDto> getById(@RequestParam("id") String id) {
-		final BooksResDto book = booksService.getById(id);
-		return new ResponseEntity<>(book, HttpStatus.OK);
+	public ResponseEntity<MemberResDto> getById(@RequestParam("id") String id) {
+		final MemberResDto member = membersService.getById(id);
+		return new ResponseEntity<>(member, HttpStatus.OK);
 	}
- 	
+	
 	@GetMapping
-	public ResponseEntity<List<BooksResDto>> getAll() {
-		final List<BooksResDto> books = booksService.getAll();
-		return new ResponseEntity<>(books, HttpStatus.OK);
+	public ResponseEntity<List<MemberResDto>> getAll() {
+		final List<MemberResDto> members = membersService.getAll();
+		return new ResponseEntity<>(members, HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<InsertResDto> insert(@RequestBody BooksInsertReqDto data) {
-		final InsertResDto response = booksService.insert(data);
+	public ResponseEntity<InsertResDto> insert(@RequestBody MemberInsertReqDto data) {
+		final InsertResDto response = membersService.insert(data);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	
 	@PatchMapping
-	public ResponseEntity<UpdateResDto> update(@RequestBody BookUpdateReqDto data) {
-		final UpdateResDto response = booksService.update(data);
+	public ResponseEntity<UpdateResDto> update(@RequestBody MemberUpdateReqDto data) {
+		final UpdateResDto response = membersService.update(data);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/")
 	public ResponseEntity<DeleteResDto> delete(@RequestParam("id") String id) {
-		final DeleteResDto response = booksService.delete(id);
+		final DeleteResDto response = membersService.delete(id);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }

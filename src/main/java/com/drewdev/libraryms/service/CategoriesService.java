@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.drewdev.libraryms.base.ConnHandler;
 import com.drewdev.libraryms.dao.CategoriesDao;
+import com.drewdev.libraryms.dto.DeleteResDto;
 import com.drewdev.libraryms.dto.InsertResDto;
 import com.drewdev.libraryms.dto.UpdateResDto;
 import com.drewdev.libraryms.dto.categories.CategoriesInsertReqDto;
@@ -89,6 +90,22 @@ public class CategoriesService {
 			
 			response.setVersion(category.getVersion());
 			response.setMessage("Category has been updated");
+			em().getTransaction().commit();
+		} catch (Exception e) {
+			em().getTransaction().rollback();
+			e.printStackTrace();
+		}
+		
+		return response;
+	}
+	
+	public DeleteResDto delete(String id) {
+		final DeleteResDto response = new DeleteResDto();
+		try {
+			em().getTransaction().begin();
+			final Categories category = categoriesDao.getById(Categories.class, id);
+			categoriesDao.deleteById(Categories.class, category.getId());
+			response.setMessage("Delete Category Success");
 			em().getTransaction().commit();
 		} catch (Exception e) {
 			em().getTransaction().rollback();

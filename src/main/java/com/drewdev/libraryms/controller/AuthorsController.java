@@ -55,7 +55,7 @@ public class AuthorsController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<DeleteResDto> delete(@PathVariable String id) {
+	public ResponseEntity<DeleteResDto> delete(@PathVariable("id") String id) {
 		final DeleteResDto response = authorsService.delete(id);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
