@@ -18,8 +18,11 @@ public class Borrowing extends BaseEntity  {
 	
 	@Column(name="date_borrow", nullable=false)
 	private LocalDateTime dateBorrow;
+	
+	@Column(name="due_date", nullable=false)
+	private LocalDateTime dueDate;
 
-	@Column(name="date_return", nullable=false)
+	@Column(name="date_return")
 	private LocalDateTime dateReturn;
 	
 	@OneToOne
@@ -57,5 +60,14 @@ public class Borrowing extends BaseEntity  {
 	public void setMember(Members member) {
 		this.member = member;
 	}
+
+	public LocalDateTime getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(LocalDateTime dueDate) {
+		this.dueDate = dueDate;
+	}
+
 
 }

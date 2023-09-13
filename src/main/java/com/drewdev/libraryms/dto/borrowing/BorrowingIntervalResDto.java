@@ -2,13 +2,14 @@ package com.drewdev.libraryms.dto.borrowing;
 
 import java.time.LocalDateTime;
 
-public class BorrowingResDto {
+public class BorrowingIntervalResDto {
 	private String id;
 	private String bookId;
 	private LocalDateTime dateBorrow;
 	private LocalDateTime dateDue;
 	private LocalDateTime dateReturn;
 	private String memberId;
+	private String interval;
 
 	public LocalDateTime getDateDue() {
 		return dateDue;
@@ -56,6 +57,14 @@ public class BorrowingResDto {
 
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+
+	public String getInterval() {
+		return interval;
+	}
+
+	public void setInterval(String interval) {
+		this.interval = interval;
 	}
 
 }

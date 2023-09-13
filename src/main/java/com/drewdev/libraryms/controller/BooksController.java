@@ -18,6 +18,7 @@ import com.drewdev.libraryms.dto.DeleteResDto;
 import com.drewdev.libraryms.dto.InsertResDto;
 import com.drewdev.libraryms.dto.UpdateResDto;
 import com.drewdev.libraryms.dto.books.BookUpdateReqDto;
+import com.drewdev.libraryms.dto.books.BookUpdateStatusReqDto;
 import com.drewdev.libraryms.dto.books.BooksInsertReqDto;
 import com.drewdev.libraryms.dto.books.BooksResDto;
 import com.drewdev.libraryms.service.BooksService;
@@ -50,6 +51,12 @@ public class BooksController {
 	@PatchMapping
 	public ResponseEntity<UpdateResDto> update(@RequestBody BookUpdateReqDto data) {
 		final UpdateResDto response = booksService.update(data);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@PatchMapping("/")
+	public ResponseEntity<UpdateResDto> updateStatus(@RequestBody BookUpdateStatusReqDto data) {
+		final UpdateResDto response = booksService.updateStatus(data);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	

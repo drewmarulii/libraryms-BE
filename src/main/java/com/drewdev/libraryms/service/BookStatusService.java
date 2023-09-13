@@ -31,4 +31,16 @@ public class BookStatusService {
 		
 		return bookStatusRes;
 	}
+	
+	public BookStatusResDto getByCode(String code) {
+		final BookStatus bookStatus = bookStatusDao.getByCode(code);
+		final BookStatusResDto bookStatusRes = new BookStatusResDto();
+		
+		bookStatusRes.setId(bookStatus.getId());
+		bookStatusRes.setStatusCode(bookStatus.getStatusCode());
+		bookStatusRes.setStatusName(bookStatus.getStatusName());
+		bookStatusRes.setIsActive(Boolean.valueOf(bookStatus.getIsActive()).toString());
+		
+		return bookStatusRes;
+	}
 }

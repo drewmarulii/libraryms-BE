@@ -19,6 +19,7 @@ import com.drewdev.libraryms.dto.DeleteResDto;
 import com.drewdev.libraryms.dto.InsertResDto;
 import com.drewdev.libraryms.dto.UpdateResDto;
 import com.drewdev.libraryms.dto.books.BookUpdateReqDto;
+import com.drewdev.libraryms.dto.books.BookUpdateStatusReqDto;
 import com.drewdev.libraryms.dto.books.BooksInsertReqDto;
 import com.drewdev.libraryms.dto.books.BooksResDto;
 import com.drewdev.libraryms.model.Authors;
@@ -169,6 +170,28 @@ public class BooksService {
 			
 			response.setVersion(book.getVersion());
 			response.setMessage("Book has been updated");
+			em().getTransaction().commit();
+		} catch (Exception e) {
+			em().getTransaction().rollback();
+			e.printStackTrace();
+		}
+		
+		return response;
+	}
+	
+	public UpdateResDto updateStatus(BookUpdateStatusReqDto data) {
+		final Books book = booksDao.getById(Books.class, data.getId());
+		final UpdateResDto response = new UpdateResDto();
+		
+		try {
+			em().getTransaction().begin();
+			final BookStatus status = bookStatusDao.getById(BookStatus.class, data.getStatusId());
+			book.setStatus(status);
+			
+			booksDao.saveAndFlush(book);
+			
+			response.setVersion(book.getVersion());
+			response.setMessage("Book Status Set: " + status.getStatusName());
 			em().getTransaction().commit();
 		} catch (Exception e) {
 			em().getTransaction().rollback();
