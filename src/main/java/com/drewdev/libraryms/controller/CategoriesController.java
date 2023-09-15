@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.drewdev.libraryms.dto.DeleteResDto;
 import com.drewdev.libraryms.dto.InsertResDto;
 import com.drewdev.libraryms.dto.UpdateResDto;
+import com.drewdev.libraryms.dto.categories.CategoriesInsertMultipleReqDto;
 import com.drewdev.libraryms.dto.categories.CategoriesInsertReqDto;
 import com.drewdev.libraryms.dto.categories.CategoriesResDto;
 import com.drewdev.libraryms.dto.categories.CategoriesUpdateReqDto;
@@ -45,6 +46,12 @@ public class CategoriesController {
 	@PostMapping
 	public ResponseEntity<InsertResDto> insert(@RequestBody CategoriesInsertReqDto data) {
 		final InsertResDto response = categoriesService.insert(data);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/upload")
+	public ResponseEntity<InsertResDto> insertMultiple(@RequestBody CategoriesInsertMultipleReqDto datas) {
+		final InsertResDto response = categoriesService.insertMultiple(datas);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	

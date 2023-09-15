@@ -1,12 +1,21 @@
 package com.drewdev.libraryms.dto.publishers;
 
 public class PublisherResDto {
+	private String id;
 	private String publName;
 	private String publAddress;
 	private String publPhone;
 	private String publFax;
 	private String publEmail;
 	private String isActive;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getPublName() {
 		return publName;

@@ -38,7 +38,7 @@ public class AuthorsService {
 			author.setId(authors.get(i).getId());
 			author.setAuthorCode(authors.get(i).getAuthorCode());
 			author.setAuthorName(authors.get(i).getAuthorName());
-			author.setIsActive(Boolean.valueOf(authors.get(i).getIsActive()).toString());
+			author.setIsActive(authors.get(i).getIsActive().toString());
 			authorsRes.add(author);
 		}
 		

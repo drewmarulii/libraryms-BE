@@ -13,6 +13,7 @@ import com.drewdev.libraryms.dao.CategoriesDao;
 import com.drewdev.libraryms.dto.DeleteResDto;
 import com.drewdev.libraryms.dto.InsertResDto;
 import com.drewdev.libraryms.dto.UpdateResDto;
+import com.drewdev.libraryms.dto.categories.CategoriesInsertMultipleReqDto;
 import com.drewdev.libraryms.dto.categories.CategoriesInsertReqDto;
 import com.drewdev.libraryms.dto.categories.CategoriesResDto;
 import com.drewdev.libraryms.dto.categories.CategoriesUpdateReqDto;
@@ -74,6 +75,31 @@ public class CategoriesService {
 			em().getTransaction().rollback();
 			e.printStackTrace();
 			throw new RuntimeException("Sorry, Insert Book's Category Failed!");
+		}
+		
+		return response;
+	}
+	
+	public InsertResDto insertMultiple(CategoriesInsertMultipleReqDto datas) {
+		final InsertResDto response = new InsertResDto();
+		try {
+			em().getTransaction().begin();
+			
+			for(int i=0; i<datas.getCategories().size(); i++) {
+				final Categories category = new Categories();
+				category.setCategoryCode(GenerateCode.generateCode());
+				category.setCategoryName(datas.getCategories().get(i).getCategoryName());
+				
+				categoriesDao.save(category);
+			}
+			
+			response.setId("INSERT CATEGORIES");
+			response.setMessage("Insert Multiple Book's Category Success. Total " + datas.getCategories().size());
+			em().getTransaction().commit();
+		} catch (Exception e) {
+			em().getTransaction().rollback();
+			e.printStackTrace();
+			throw new RuntimeException("Sorry, Insert Multiple Book's Category Failed");
 		}
 		
 		return response;
