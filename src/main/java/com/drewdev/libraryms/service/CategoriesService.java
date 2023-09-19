@@ -39,7 +39,7 @@ public class CategoriesService {
 			category.setId(categories.get(i).getId());
 			category.setCategoryCode(categories.get(i).getCategoryCode());
 			category.setCategoryName(categories.get(i).getCategoryName());
-			category.setIsActive(Boolean.valueOf(categories.get(i).getIsActive()).toString());
+			category.setIsActive(categories.get(i).getIsActive().toString());
 			categoriesRes.add(category);
 		}
 		
@@ -53,7 +53,7 @@ public class CategoriesService {
 		categoryRes.setId(category.getId());
 		categoryRes.setCategoryCode(category.getCategoryCode());
 		categoryRes.setCategoryName(category.getCategoryName());
-		categoryRes.setIsActive(Boolean.valueOf(category.getIsActive()).toString());
+		categoryRes.setIsActive(category.getIsActive().toString());
 		
 		return categoryRes;
 	}

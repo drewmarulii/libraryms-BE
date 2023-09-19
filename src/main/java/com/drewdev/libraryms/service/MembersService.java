@@ -43,7 +43,7 @@ public class MembersService {
 			member.setMemberGender(members.get(i).getMemberGender());
 			member.setMemberAddress(members.get(i).getMemberAddress());
 			member.setMemberPhone(members.get(i).getMemberPhone());
-			member.setIsActive(Boolean.valueOf(members.get(i).getIsActive()).toString());
+			member.setIsActive(members.get(i).getIsActive().toString());
 			memberRes.add(member);
 		}
 
