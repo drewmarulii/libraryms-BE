@@ -20,6 +20,7 @@ import com.drewdev.libraryms.dto.InsertResDto;
 import com.drewdev.libraryms.dto.UpdateResDto;
 import com.drewdev.libraryms.dto.books.BookUpdateReqDto;
 import com.drewdev.libraryms.dto.books.BookUpdateStatusReqDto;
+import com.drewdev.libraryms.dto.books.BooksInsertMultipleReqDto;
 import com.drewdev.libraryms.dto.books.BooksInsertReqDto;
 import com.drewdev.libraryms.dto.books.BooksResDto;
 import com.drewdev.libraryms.model.Authors;
@@ -131,6 +132,50 @@ public class BooksService {
 			throw new RuntimeException("Sorry, Insert Book Failed!");
 		}
 		
+		return response;
+	}
+	
+	public InsertResDto insertMultiple(BooksInsertMultipleReqDto datas) {
+		final InsertResDto response = new InsertResDto();
+		try {
+			em().getTransaction().begin();
+			
+			for(int i=0; i<datas.getBooks().size(); i++) {
+				final Books book = new Books();
+				book.setBookIsbn(datas.getBooks().get(i).getBookIsbn());
+				book.setBookTitle(datas.getBooks().get(i).getBookTitle());
+				book.setBookPublishDate(datas.getBooks().get(i).getBookPublishdate());
+				
+				final Authors author = authorsDao.getById(Authors.class, datas.getBooks().get(i).getAuthorId());
+				book.setAuthor(author);
+				
+				final Publishers publisher = publishersDao.getById(Publishers.class, datas.getBooks().get(i).getPublisherId());
+				book.setPublisher(publisher);
+				
+				final Categories category = categoriesDao.getById(Categories.class, datas.getBooks().get(i).getCategoryId());
+				book.setCategory(category);
+				
+				final BookStatus status = bookStatusDao.getById(BookStatus.class, datas.getBooks().get(i).getStatusId());
+				book.setStatus(status);
+				
+				final File file = new File();
+				file.setFileName(datas.getBooks().get(i).getFileName());
+				file.setFileExtension(datas.getBooks().get(i).getFileExtension());
+				fileDao.save(file);
+				book.setFile(file);
+				
+				booksDao.save(book);
+			}
+			
+			response.setId("INSERT BOOKS");
+			response.setMessage("Insert Multiple Books Success!");
+			em().getTransaction().commit();
+		} catch (Exception e) {
+			em().getTransaction().rollback();
+			e.printStackTrace();
+			throw new RuntimeException("Sorry, Insert Multiple Books Failed!");
+		}
+	
 		return response;
 	}
 	

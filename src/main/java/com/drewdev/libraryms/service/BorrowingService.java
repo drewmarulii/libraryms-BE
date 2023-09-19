@@ -82,40 +82,38 @@ public class BorrowingService {
 		final InsertResDto response = new InsertResDto();
 		final LocalDateTime now = LocalDateTime.now();
 		try {
+			final Borrowing borrowing = new Borrowing();
+			borrowing.setDateBorrow(now);
+			
+			final Members member = membersDao.getById(Members.class, data.getMemberId());
+			borrowing.setMember(member);
+			
 			final Books book = booksDao.getById(Books.class, data.getBookId());
 			final BookStatus currentStatus = bookStatusDao.getById(BookStatus.class, book.getStatus().getId());
 			
-			if (currentStatus.getStatusCode().equals(BookStatusConst.AVAILABLE.getStatusCode())) {
-				em().getTransaction().begin();
-				final Borrowing borrowing = new Borrowing();
-				borrowing.setBook(book);
-				borrowing.setDateBorrow(now);
-				
-				LocalDate date = LocalDate.now();
-				final LocalDateTime dueDate = date.atTime(23, 59, 59);
-				borrowing.setDueDate(dueDate.plusDays(7));
-				
-				final Members member = membersDao.getById(Members.class, data.getMemberId());
-				borrowing.setMember(member);
-				
-				borrowingDao.save(borrowing);
-				
-				final BookStatus status = bookStatusDao.getByCode(BookStatusConst.OUT.getStatusCode());
-				book.setStatus(status);
-				
-				booksDao.saveAndFlush(book);
-				
-				response.setId(borrowing.getId());
-				response.setMessage("Insert Borrowing Success");
-				em().getTransaction().commit();
-			} else {
-				em().getTransaction().rollback();
-				throw new RuntimeException("Book Not Available");
+			for(int i=0; i<data.getBookId().size(); i++) {
+				if (currentStatus.getStatusCode().equals(BookStatusConst.AVAILABLE.getStatusCode())) {
+					em().getTransaction().begin();
+					
+					LocalDate date = LocalDate.now();
+					final LocalDateTime dueDate = date.atTime(23, 59, 59);
+					borrowing.setDueDate(dueDate.plusDays(7));
+					borrowingDao.save(borrowing);
+					
+					final BookStatus status = bookStatusDao.getByCode(BookStatusConst.OUT.getStatusCode());
+					book.setStatus(status);
+					
+					booksDao.saveAndFlush(book);
+					
+					response.setId(borrowing.getId());
+					response.setMessage("Insert Borrowing Success");
+					em().getTransaction().commit();
+				}
 			}
+			
 		} catch (Exception e) {
 			em().getTransaction().rollback();
 			e.printStackTrace();
-			throw new RuntimeException("Insert Borrowing Failed!");
 		}
 		
 		return response;

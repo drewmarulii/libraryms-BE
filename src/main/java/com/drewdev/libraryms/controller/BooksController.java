@@ -19,6 +19,7 @@ import com.drewdev.libraryms.dto.InsertResDto;
 import com.drewdev.libraryms.dto.UpdateResDto;
 import com.drewdev.libraryms.dto.books.BookUpdateReqDto;
 import com.drewdev.libraryms.dto.books.BookUpdateStatusReqDto;
+import com.drewdev.libraryms.dto.books.BooksInsertMultipleReqDto;
 import com.drewdev.libraryms.dto.books.BooksInsertReqDto;
 import com.drewdev.libraryms.dto.books.BooksResDto;
 import com.drewdev.libraryms.service.BooksService;
@@ -45,6 +46,12 @@ public class BooksController {
 	@PostMapping
 	public ResponseEntity<InsertResDto> insert(@RequestBody BooksInsertReqDto data) {
 		final InsertResDto response = booksService.insert(data);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/upload")
+	public ResponseEntity<InsertResDto> insertMultiple(@RequestBody BooksInsertMultipleReqDto datas) {
+		final InsertResDto response = booksService.insertMultiple(datas);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	

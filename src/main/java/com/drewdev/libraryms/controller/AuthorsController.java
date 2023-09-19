@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.drewdev.libraryms.dto.DeleteResDto;
 import com.drewdev.libraryms.dto.InsertResDto;
 import com.drewdev.libraryms.dto.UpdateResDto;
+import com.drewdev.libraryms.dto.authors.AuthorInsertMultipleReqDto;
 import com.drewdev.libraryms.dto.authors.AuthorInsertReqDto;
 import com.drewdev.libraryms.dto.authors.AuthorResDto;
 import com.drewdev.libraryms.dto.authors.AuthorUpdateReqDto;
@@ -45,6 +46,12 @@ public class AuthorsController {
 	@PostMapping
 	public ResponseEntity<InsertResDto> insert(@RequestBody AuthorInsertReqDto data) {
 		final InsertResDto response = authorsService.insert(data);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/upload")
+	public ResponseEntity<InsertResDto> insertMultiple(@RequestBody AuthorInsertMultipleReqDto datas) {
+		final InsertResDto response = authorsService.insertMultiple(datas);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	

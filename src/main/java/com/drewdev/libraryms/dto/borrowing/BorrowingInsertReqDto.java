@@ -1,14 +1,16 @@
 package com.drewdev.libraryms.dto.borrowing;
 
-public class BorrowingInsertReqDto {
-	private String bookId;
-	private String memberId;
+import java.util.List;
 
-	public String getBookId() {
+public class BorrowingInsertReqDto {
+	private String memberId;
+	private List<String> bookId;
+
+	public List<String> getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(String bookId) {
+	public void setBookId(List<String> bookId) {
 		this.bookId = bookId;
 	}
 

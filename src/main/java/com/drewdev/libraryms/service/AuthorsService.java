@@ -13,6 +13,7 @@ import com.drewdev.libraryms.dao.AuthorsDao;
 import com.drewdev.libraryms.dto.DeleteResDto;
 import com.drewdev.libraryms.dto.InsertResDto;
 import com.drewdev.libraryms.dto.UpdateResDto;
+import com.drewdev.libraryms.dto.authors.AuthorInsertMultipleReqDto;
 import com.drewdev.libraryms.dto.authors.AuthorInsertReqDto;
 import com.drewdev.libraryms.dto.authors.AuthorResDto;
 import com.drewdev.libraryms.dto.authors.AuthorUpdateReqDto;
@@ -74,6 +75,31 @@ public class AuthorsService {
 			em().getTransaction().rollback();
 			e.printStackTrace();
 			throw new RuntimeException("Sorry, Insert Author Failed!");
+		}
+		
+		return response;
+	}
+	
+	public InsertResDto insertMultiple(AuthorInsertMultipleReqDto datas) {
+		final InsertResDto response = new InsertResDto();
+		try {
+			em().getTransaction().begin();
+			
+			for(int i=0; i<datas.getAuthors().size(); i++) {
+				final Authors author = new Authors();
+				author.setAuthorCode(GenerateCode.generateCode());
+				author.setAuthorName(datas.getAuthors().get(i).getAuthorName());
+				
+				authorsDao.save(author);
+			}
+			
+			response.setId("INSERT AUTHORS");
+			response.setMessage("Insert Multiple Authors Success");
+			em().getTransaction().commit();
+		} catch (Exception e) {
+			em().getTransaction().rollback();
+			e.printStackTrace();
+			throw new RuntimeException("Sorry, Insert Multiple Authors Failed!");
 		}
 		
 		return response;
